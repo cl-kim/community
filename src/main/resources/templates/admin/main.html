@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid p-2">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">회원 이메일</th>
+                <th scope="col">이름</th>
+                <th scope="col">가입일자</th>
+                <th scope="col">삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="member : ${memberList}" >
+                <td scope="row">
+                    [[${member.email}]]
+                </td>
+                <td>[[${member.userName}]]</td>
+                <td>[[${#temporals.format(member.regDate, 'yyyy/MM/dd')}]]</td>
+                <td><a href="/admin/remove">X</a> </td>
+            </tr>
+
+
+
+            </tbody>
+        </table>
+</body>
+</html>

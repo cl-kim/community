@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>회원가입 페이지</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid text-center">
+        <h1>회원 가입</h1>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid username and password.
+        </div>
+        <div class="border border-secondary p-3 rounded">
+            <form th:action="@{/user/signup}" method="post" style="max-width: 350px; margin: 0 auto;">
+                <input type="text" name="email" placeholder="이메일을 입력해주세요" required>
+                <input type="password" name="password" placeholder="비밀번호" required>
+                <input type="text"name="userName" placeholder="이름을 입력하세요" required>
+                <br><button class="btn btn-light" type="submit">가입하기</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

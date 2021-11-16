@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid p-5 my-5 text-center">
+        <h1 align="center"> Welcome To Our Community</h1>
+        <a class="nav-link" th:href="@{/board/list}">게시판</a>
+    </div>
+</div>
+</body>
+
+</html>
+
+
