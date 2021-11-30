@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Member extends BaseEntity {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Long memberId;
+    private Long userId;
 
     @Column(length = 20, nullable = false)
     private String email;
@@ -25,6 +25,13 @@ public class Member extends BaseEntity {
 
     @Column(length = 20, nullable = false)
     private String userName;
+
+    @Column
+    private String postcode;
+    @Column
+    private String address;
+    @Column
+    private String detailAddress;
 
     public void changeUserName(String userName){this.userName=userName;}
     public void changePassword(String password){   this.password=password;    }

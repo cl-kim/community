@@ -1,7 +1,7 @@
 package com.chaelin.community.controller;
 
-import com.chaelin.community.dto.MemberDTO;
-import com.chaelin.community.service.MemberService;
+import com.chaelin.community.dto.UserDTO;
+import com.chaelin.community.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/user")
-public class MemberController {
-    private MemberService memberService;
+public class UserController {
+    private UserService userService;
 
 
     @GetMapping("/signup")
@@ -22,8 +22,8 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String execSignup(MemberDTO memberDTO){
-        memberService.joinUser(memberDTO);
+    public String execSignup(UserDTO userDTO){
+        userService.joinUser(userDTO);
 
         return "redirect:/user/login";
     }
@@ -33,6 +33,7 @@ public class MemberController {
 
         return "/user/login";
     }
+
 
     // 로그인 결과 페이지
     @GetMapping("/login/result")
@@ -56,15 +57,15 @@ public class MemberController {
     @GetMapping("/info")
     public String dispInfo(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        model.addAttribute("memberDTO",memberService.getMember(userDetails.getUsername()));
+        model.addAttribute("userDTO", userService.getUser(userDetails.getUsername()));
         return "/user/info";
     }
 
     // 내 정보 수정
     @PostMapping("/info/modify")
-    public String modify(MemberDTO memberDTO){
+    public String modify(UserDTO userDTO){
 
-        memberService.modifyMember(memberDTO);
+        userService.modifyUser(userDTO);
 
         return "redirect:/user/info";
 
@@ -72,9 +73,9 @@ public class MemberController {
 
     // 회원 탈퇴
     @PostMapping("/info/remove")
-    public String remove(Long memberId){
+    public String remove(Long userId){
 
-        memberService.deleteMember(memberId);
+        userService.deleteUser(userId);
 
         return "/index";
 

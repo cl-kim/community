@@ -1,6 +1,6 @@
 package com.chaelin.community.config;
 
-import com.chaelin.community.service.MemberService;
+import com.chaelin.community.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final MemberService memberService;
+    private final UserService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/board/register").hasAnyRole("MEMBER","ADMIN")
+                .antMatchers("/board/register").hasAnyRole("USER","ADMIN")
                 //.antMatchers("/","/user/signup").permitAll()
                 //.anyRequest().authenticated()
             .and()
@@ -52,6 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 }

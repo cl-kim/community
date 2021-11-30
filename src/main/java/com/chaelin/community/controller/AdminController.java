@@ -1,7 +1,7 @@
 package com.chaelin.community.controller;
 
-import com.chaelin.community.domain.entity.Member;
-import com.chaelin.community.service.MemberService;
+import com.chaelin.community.domain.entity.User;
+import com.chaelin.community.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +15,20 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
-    MemberService memberService;
+    UserService userService;
     // 어드민 페이지
     @GetMapping("/")
     public String dispAdmin(Model model) {
-        List<Member> memberList = memberService.getList();
-        model.addAttribute("memberList", memberList);
+        List<User> userList = userService.getList();
+        model.addAttribute("userList", userList);
         return "/admin/main";
     }
 
     // 회원 탈퇴
     @PostMapping("/remove")
-    public String remove(Long memberId) {
+    public String remove(Long userId) {
 
-        memberService.deleteMember(memberId);
+        userService.deleteUser(userId);
 
         return "/admin/main";
     }
