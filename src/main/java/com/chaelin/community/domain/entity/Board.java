@@ -2,6 +2,7 @@ package com.chaelin.community.domain.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -25,6 +26,9 @@ public class Board extends BaseEntity{
 
     @Column(length = 50, nullable = false)
     private String writer;
+
+    @ColumnDefault("0")
+    private int hit=0;
 
     public void changeTitle(String title){
         this.title =title;

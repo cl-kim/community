@@ -11,12 +11,14 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -36,25 +38,24 @@ public class BoardServiceImp implements BoardService{
     }
 
     @Override
-    public PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO) {
-
-        Pageable pageable = requestDTO.getPageable(Sort.by("bno").descending());
-
-        BooleanBuilder booleanBuilder = getSearch(requestDTO); //검색 조건 처리
-
-        Page<Board> result = repository.findAll(booleanBuilder, pageable); //Querydsl 사용
-
-        Function<Board, BoardDTO> fn = (entity -> entityToDto(entity));
-
-        return new PageResultDTO<>(result, fn);
+    public Page<Board> getList(Pageable pageable) {
+        int page = (pageable.getPageNumber()==0? 0 : (pageable.getPageNumber())-1);
+        pageable = PageRequest.of(page, 10, Sort.by("bno"));
+        return repository.findAll(pageable);
     }
+
 
     @Override
     public BoardDTO read(Long bno) {
 
         Optional<Board> result = repository.findById(bno);
-
-        return result.isPresent() ? entityToDto(result.get()) : null;
+        if(result.isPresent()) {
+            BoardDTO boardDTO = entityToDto(result.get());
+            boardDTO.setHit(boardDTO.getHit()+1);
+            repository.save(dtoToEntity(boardDTO));
+            return boardDTO;
+        }
+        return null;
     }
 
     @Override

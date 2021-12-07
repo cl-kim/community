@@ -1,21 +1,22 @@
 package com.chaelin.community.service;
 
 import com.chaelin.community.dto.BoardDTO;
-import com.chaelin.community.dto.PageRequestDTO;
-import com.chaelin.community.dto.PageResultDTO;
 import com.chaelin.community.domain.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 
 public interface BoardService {
 
     Long register(BoardDTO dto);
 
-    PageResultDTO<BoardDTO, Board> getList(PageRequestDTO requestDTO);
+    Page<Board> getList(Pageable pageable);
     BoardDTO read(Long bno);
 
     void modify(BoardDTO dto);
 
     void remove(Long bno);
+
 
     default Board dtoToEntity(BoardDTO dto) {
         Board entity = Board.builder()
@@ -23,6 +24,7 @@ public interface BoardService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .writer(dto.getWriter())
+                .hit(dto.getHit())
                 .build();
         return entity;
     }
@@ -36,6 +38,7 @@ public interface BoardService {
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .writer(entity.getWriter())
+                .hit(entity.getHit())
                 .build();
 
         return dto;

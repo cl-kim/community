@@ -18,4 +18,5 @@ public class BoardDTO {
     private String content;
     private LocalDateTime regDate,modDate;
     private String writer;
+    private int hit;
 }
