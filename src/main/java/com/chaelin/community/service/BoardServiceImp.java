@@ -39,8 +39,8 @@ public class BoardServiceImp implements BoardService{
 
     @Override
     public Page<Board> getList(Pageable pageable) {
-        int page = (pageable.getPageNumber()==0? 0 : (pageable.getPageNumber())-1);
-        pageable = PageRequest.of(page, 10, Sort.by("bno"));
+        /*int page = (pageable.getPageNumber()==0? 0 : (pageable.getPageNumber())-1);
+        pageable = PageRequest.of(page, 10, Sort.by("bno"));*/
         return repository.findAll(pageable);
     }
 

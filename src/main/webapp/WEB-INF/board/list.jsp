@@ -98,6 +98,13 @@
             </c:if>
         </tbody>
     </table>
+    <div class="pagination justify-content-center">
+        <c:if test="$previous = 0"></c:if>
+        <a href="?page=${previous}" role="button" class="btn btn-lg left-arrow-button">previous</a>
+        <c:if test="${next}!= -1">
+        <a href="?page=${next}" role="button" class="btn btn-lg right-arrow-button">next</a>
+        </c:if>
+    </div>
 <!--
     <ul class="pagination h-100 justify-content-center align-items-center">
 
@@ -108,9 +115,7 @@
         </li>
 
         <li class=" 'page-item ' + ${result.page == page?'active':''} " each="page: ${result.pageList}">
-            <a class="page-link" href="/board/list(page = ${page} ,
-                   type=${pageRequestDTO.type} ,
-                   keyword = ${pageRequestDTO.keyword}  )">
+            <a class="page-link" href="/board/list(page = ${page})">
                 [[${page}]]
             </a>
         </li>
@@ -123,28 +128,6 @@
 
     </ul>
 
-
-    <div class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
 </div>
 <%@ include file="../bootstrap.jsp" %>
 </body>

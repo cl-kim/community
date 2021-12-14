@@ -5,7 +5,9 @@ import com.chaelin.community.dto.PageRequestDTO;
 import com.chaelin.community.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -32,12 +34,19 @@ public class BoardController {
     public String index(){
         return "redirect:/board/list";
     }
-    @GetMapping("/list")
-    public void list(@PageableDefault Pageable pageable, Model model){
 
-        log.info(boardService.getList(pageable).getContent());
+    @GetMapping("/list")
+    public String list(@PageableDefault(sort = "bno", direction = Sort.Direction.DESC) Pageable pageable, Model model){
+
+        int next = pageable.next().getPageNumber();
+        log.info(next);
 
         model.addAttribute("boardList", boardService.getList(pageable));
+
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", next);
+
+        return "/board/list";
     }
 
     @PreAuthorize("isAuthenticated()")

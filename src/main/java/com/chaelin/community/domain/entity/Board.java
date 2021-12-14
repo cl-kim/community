@@ -27,7 +27,7 @@ public class Board extends BaseEntity{
     @Column(length = 50, nullable = false)
     private String writer;
 
-    @ColumnDefault("0")
+    @Column
     private int hit=0;
 
     public void changeTitle(String title){

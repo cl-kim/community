@@ -8,7 +8,7 @@
     <%@include file="top.jsp"%>
     <div align="center">
 <h2> Hello Spring Boot JSP</h2>
-    <a href="/board/">게시판으로</a>
+    <a href="/board/list">게시판으로</a>
 </div>
 <%@ include file="bootstrap.jsp" %>
 </body>

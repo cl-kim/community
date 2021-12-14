@@ -30,11 +30,11 @@
 
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li class="nav-item">
-                        <a class="nav-link" href="/admin">어드민</a>
+                        <a class="nav-link" href="/admin/">어드민</a>
                 </li>
                     </sec:authorize>
 
-                    <sec:authorize access="hasRole('ROLE_MEMBER')">
+                    <sec:authorize access="hasRole('ROLE_USER')">
                 <li class="nav-item">
                         <a class="nav-link" href="/user/info">내정보</a>
                 </li>
